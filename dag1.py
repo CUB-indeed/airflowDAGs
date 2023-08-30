@@ -24,14 +24,12 @@ dag = DAG('hello_KubePodOp',
           start_date=datetime(2017, 3, 20),
           catchup=False)
 
-env_var = [k8s.V1EnvVar(name='FOO', value='foo'), k8s.V1EnvVar(name='BAR', value='bar')]
-configmaps = [k8s.V1EnvFromSource(config_map_ref=k8s.V1ConfigMapEnvSource(name='my-configs'))]
+#env_var = [k8s.V1EnvVar(name='FOO', value='foo'), k8s.V1EnvVar(name='BAR', value='bar')]
+#configmaps = [k8s.V1EnvFromSource(config_map_ref=k8s.V1ConfigMapEnvSource(name='my-configs'))]
 
 ingest_data = KubernetesPodOperator(
             image="localhost:3001/example_app:test",
             arguments=["ingest-data"],
-            env_vars=env_var,
-            env_from=configmaps,
             name=f"ingest_data",
             task_id=f"ingest_data",
             retries=5,
